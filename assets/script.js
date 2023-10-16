@@ -6,10 +6,10 @@ let stopBtn = document.querySelector('#stopBtn');
 let numberEl = document.querySelector('#numberInput');
 let timer = 60;
 let countdown;
-// let randomNumber = randomNumbers(0, Infinity);
+let randomNumber;
+
 
 // Function calls
-fizzBuzz();
 
 // Buttons/ Event listeners
 startBtn.addEventListener('click', startTimer);
@@ -18,24 +18,29 @@ startBtn.addEventListener('click', () => {
 });
 
 // Functions
-function fizzBuzz() {
-    searchEl.addEventListener('click', function (event) {
-        event.preventDefault();
-        console.log('Button works');
+function randomNumbers(min, max) {
+    let randomNumber;
 
-        let n = inputEl.value;
+    if (max === Infinity) {
+        randomNumber = min + Math.random() * (Number.MAX_VALUE - min);
+    } else {
+        randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-        if (n % 15 === 0) {
-            return console.log('fizzBuzz')
-        } else if (n % 3 === 0) {
-            return console.log('fizz')
-        } else if (n % 5 === 0) {
-            return console.log('buzz')
-        } else {
-            return console.log('what happened')
-        }
+    if (randomNumber % 15 === 0) {
+        console.log('fizzBuzz');
+    } else if (randomNumber % 3 === 0) {
+        console.log('fizz');
+    } else if (randomNumber % 5 === 0) {
+        console.log('buzz');
+    } else {
+        console.log('what happened');
+    }
 
-    })
+    document.querySelector('#numberInput').setHTML(randomNumber);
+
+    return randomNumber;
+    
 }
 
 function startTimer() {
@@ -48,13 +53,3 @@ function startTimer() {
         document.querySelector('#timer').textContent = timer;
     }, 1000);
 }
-
-function randomNumbers(min, max) {
-    let randomNumber;
-    if ( max === Infinity) {
-        return min + Math.random() * (Number.MAX_VALUE - min);
-    } else {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
-    document.querySelector
-};

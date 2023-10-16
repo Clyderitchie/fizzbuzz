@@ -52,27 +52,29 @@
         </div>
         <!-- Start game -->
         <div class="row mt-3">
-            <div class="col-6">
-                <button id="startBtn" type="button" class="btn btn-dark">Start</button>
-                <span id="timer"></span>
+            <div class="col-6 d-flex justify-content-center">
+                <button id="startBtn" type="button" class="btn btn-dark">Start Game</button>
             </div>
-            <div class="col-6">
-                <button id="stopBtn" type="button" class="btn btn-dark">Stop</button>
+            <div class="col-2 fw-bold fs-4 d-flex justify-content-center">
+                Time left:
             </div>
+            <div id="timer" class="col-1 d-flex justify-content-center fw-bold fs-4"></div>
+            <div class="col-3 d-flex justify-content-start fw-bold fs-4">Seconds.</div>
         </div>
         <!-- User input -->
         <div class="row mt-3">
+            <!-- Answer buttons -->
             <div class="col-6">
-                <div class="container-fluid">
-                    <form class="d-flex" role="search">
-                      <input id="userInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                      <button id="userSearch" class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-dark" type="button">Fizz</button>
+                    <button class="btn btn-dark" type="button">Buzz</button>
+                    <button class="btn btn-dark" type="button">fizzBuzz</button>
+                    <button class="btn btn-dark" type="button">Nothing</button>
                   </div>
             </div>
-            <!-- Computer random number -->
-            <div class="col-6">
-                <div id="numberInput"></div>
+            <!-- Render random number -->
+            <div class="col-6 d-flex justify-content-center">
+                <div id="numberInput" class="fw-bold fs-4"></div>
             </div>
         </div>
     </div>
