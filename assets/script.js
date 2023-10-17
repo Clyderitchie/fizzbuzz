@@ -6,26 +6,21 @@ let stopBtn = document.querySelector('#stopBtn');
 let numberEl = document.querySelector('#numberInput');
 let timer = 60;
 let countdown;
-let randomNumber;
+// let randomNumber;
 
 
 // Function calls
+answerBtns();
 
 // Buttons/ Event listeners
 startBtn.addEventListener('click', startTimer);
 startBtn.addEventListener('click', () => {
-    randomNumbers(0, Infinity)
+    randomNumbers()
 });
 
 // Functions
-function randomNumbers(min, max) {
-    let randomNumber;
-
-    if (max === Infinity) {
-        randomNumber = min + Math.random() * (Number.MAX_VALUE - min);
-    } else {
-        randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+function randomNumbers(min, max) {   
+    let randomNumber = Math.floor(Math.random() * 1000);
 
     if (randomNumber % 15 === 0) {
         console.log('fizzBuzz');
@@ -34,13 +29,11 @@ function randomNumbers(min, max) {
     } else if (randomNumber % 5 === 0) {
         console.log('buzz');
     } else {
-        console.log('what happened');
+        console.log('nothing');
     }
 
     document.querySelector('#numberInput').setHTML(randomNumber);
-
     return randomNumber;
-    
 }
 
 function startTimer() {
@@ -52,4 +45,35 @@ function startTimer() {
 
         document.querySelector('#timer').textContent = timer;
     }, 1000);
+}
+
+function answerBtns () {
+    let fizz = document.querySelector('#fizzBtn');
+    let buzz = document.querySelector('#buzzBtn');
+    let fizzBuzz = document.querySelector('#fizzBuzzBtn');
+    let nothing = document.querySelector('#nothingBtn');
+
+    fizz.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log('fizz');
+    })
+
+    buzz.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log('buzz');
+    })
+
+    fizzBuzz.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log('fizzBuzz');
+    })
+
+    nothing.addEventListener('click', function(event) {
+        event.preventDefault();
+        console.log('nothing');
+    })
+}
+
+function compareAnswers() {
+      
 }
