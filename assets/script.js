@@ -1,11 +1,13 @@
 // Retrieving Local Storage
  let score = parseInt(localStorage.getItem('score')) || 0;
+ let scores = JSON.parse(localStorage.getItem('scores')) || [];
 
 // Global Variables
 let searchEl = document.querySelector('#userSearch');
 let inputEl = document.querySelector('#userInput');
 let startBtn = document.querySelector('#startBtn');
 let numberEl = document.querySelector('#numberInput');
+let highscoreEl = document.querySelector('#highscore');
 let fizz = document.querySelector('#fizzBtn');
 let buzz = document.querySelector('#buzzBtn');
 let fizzBuzz = document.querySelector('#fizzBuzzBtn');
@@ -13,7 +15,6 @@ let nothing = document.querySelector('#nothingBtn');
 let scoreEl = document.querySelector('#score');
 let randomNumber = Math.floor(Math.random() * 1000);
 let selectedBtn = '';
-// let score = 0;
 let timer = 60;
 let countdown;
 
@@ -23,13 +24,11 @@ answerBtns();
 // Buttons/ Event listeners
 startBtn.addEventListener('click', startTimer);
 startBtn.addEventListener('click', () => {
-    randomNumbers()
+    randomNumbers();
 });
 
 // Functions
-function randomNumbers(min, max) {
-    // let randomNumber = Math.floor(Math.random() * 1000);
-
+function randomNumbers() {
     if (randomNumber % 15 === 0) {
         console.log('fizzBuzz');
     } else if (randomNumber % 3 === 0) {
@@ -50,12 +49,12 @@ function startTimer() {
         if (timer <= 0) {
             clearInterval(countdown);
             document.querySelector('#numberInput').setHTML('Game Over')
-
+            startBtn.disabled = true;
 
         }
 
         document.querySelector('#timer').textContent = `Time left: ${timer} seconds`;
-    }, 10);
+    }, 1000);
 }
 
 function answerBtns() {
@@ -102,6 +101,15 @@ function compareAnswers() {
     }
 
     scoreEl.textContent = `Score: ${score}`;
+
+    scores.push(score)
+    scores.sort((a, b) => b - a);
+    scores = scores.slice(0, 5);
+
+    highscoreEl.textContent = `High Scores: ${scores.join(', ')}`
+
+    localStorage.setItem('scores', JSON.stringify(scores));
+
 
     localStorage.setItem('score', score);
 
