@@ -1,13 +1,21 @@
+// Retrieving Local Storage
+ let score = parseInt(localStorage.getItem('score')) || 0;
+
 // Global Variables
 let searchEl = document.querySelector('#userSearch');
 let inputEl = document.querySelector('#userInput');
 let startBtn = document.querySelector('#startBtn');
-let stopBtn = document.querySelector('#stopBtn');
 let numberEl = document.querySelector('#numberInput');
+let fizz = document.querySelector('#fizzBtn');
+let buzz = document.querySelector('#buzzBtn');
+let fizzBuzz = document.querySelector('#fizzBuzzBtn');
+let nothing = document.querySelector('#nothingBtn');
+let scoreEl = document.querySelector('#score');
+let randomNumber = Math.floor(Math.random() * 1000);
+let selectedBtn = '';
+// let score = 0;
 let timer = 60;
 let countdown;
-// let randomNumber;
-
 
 // Function calls
 answerBtns();
@@ -19,8 +27,8 @@ startBtn.addEventListener('click', () => {
 });
 
 // Functions
-function randomNumbers(min, max) {   
-    let randomNumber = Math.floor(Math.random() * 1000);
+function randomNumbers(min, max) {
+    // let randomNumber = Math.floor(Math.random() * 1000);
 
     if (randomNumber % 15 === 0) {
         console.log('fizzBuzz');
@@ -39,41 +47,68 @@ function randomNumbers(min, max) {
 function startTimer() {
     countdown = setInterval(() => {
         timer--;
-        if (timer < 0) {
+        if (timer <= 0) {
             clearInterval(countdown);
+            document.querySelector('#numberInput').setHTML('Game Over')
+
+
         }
 
-        document.querySelector('#timer').textContent = timer;
-    }, 1000);
+        document.querySelector('#timer').textContent = `Time left: ${timer} seconds`;
+    }, 10);
 }
 
-function answerBtns () {
-    let fizz = document.querySelector('#fizzBtn');
-    let buzz = document.querySelector('#buzzBtn');
-    let fizzBuzz = document.querySelector('#fizzBuzzBtn');
-    let nothing = document.querySelector('#nothingBtn');
+function answerBtns() {
 
-    fizz.addEventListener('click', function(event) {
+    const fizzAnswer = fizz.addEventListener('click', function (event) {
         event.preventDefault();
-        console.log('fizz');
+        selectedBtn = 'fizz';
+        compareAnswers();
+        console.log(selectedBtn);
     })
 
-    buzz.addEventListener('click', function(event) {
+    const buzzAnswer = buzz.addEventListener('click', function (event) {
         event.preventDefault();
-        console.log('buzz');
+        selectedBtn = 'buzz';
+        compareAnswers();
+        console.log(selectedBtn);
     })
 
-    fizzBuzz.addEventListener('click', function(event) {
+    const fizzBuzzAnswer = fizzBuzz.addEventListener('click', function (event) {
         event.preventDefault();
-        console.log('fizzBuzz');
+        selectedBtn = 'fizzBuzz'
+        compareAnswers();
+        console.log(selectedBtn);
     })
 
-    nothing.addEventListener('click', function(event) {
+    const nothingAnswer = nothing.addEventListener('click', function (event) {
         event.preventDefault();
-        console.log('nothing');
+        selectedBtn = 'nothing';
+        compareAnswers();
+        console.log(selectedBtn);
     })
+
 }
 
 function compareAnswers() {
-      
+    if (selectedBtn === 'fizzBuzz' && randomNumber % 15 === 0) {
+        score += 1;
+    } else if (selectedBtn === 'fizz' && randomNumber % 3 === 0) {
+        score += 1;
+    } else if (selectedBtn === 'buzz' && randomNumber % 5 === 0) {
+        score += 1;
+    } else if (selectedBtn === 'nothing' && randomNumber % 3 != 0 && randomNumber % 5 != 0 && randomNumber % 15 != 0) {
+        score += 1;
+    }
+
+    scoreEl.textContent = `Score: ${score}`;
+
+    localStorage.setItem('score', score);
+
+    randomNumber = Math.floor(Math.random() * 1000);
+    document.querySelector('#numberInput').textContent = randomNumber;
+
+    console.log(score);
+    return score;
 }
+
